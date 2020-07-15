@@ -1,0 +1,87 @@
+  <%= render 'layouts/header'%>
+
+    <div class ="posts__containers">
+      <div class="posts__containers__container"> 
+        <div class="posts__containers__container__left"> 
+          <div class="posts__containers__container__left__posts"> 
+            <div class="posts__containers__container__left__posts__title">
+              『<%= @category.name %>』の投稿
+              </div>
+          <% @category.posts.each do |post| %>
+            <div class="posts__containers__container__left__posts__post">
+              <div class="posts__containers__container__left__posts__post__top"> 
+                  <div class="posts__containers__container__left__posts__post__top__account">
+                      <%= link_to user_path(current_user.id) do %>
+                        <%= image_tag post.user.image %>
+                      <% end %>
+                  </div>
+
+                    <div class="posts__containers__container__left__posts__post__top__name">
+                      <a href="/users/<%= post.user.id %>">
+                        <%= post.user.name %>
+                      </a>
+                    </div>
+                  <div class="posts__containers__container__left__posts__post__top__manage">
+                      <% if user_signed_in? && current_user.id == post.user_id %>
+                      <ul class="posts__containers__container__left__posts__post__top__manage__lists">
+                      <li>
+                        <%= link_to '編集', "/posts/#{post.id}/edit", method: :get %>
+                      </li>
+                      <li>
+                        <%= link_to '削除', "/posts/#{post.id}", method: :delete %>
+                      </li>
+                      </ul>
+                      <% end %>
+                  </div>
+  
+              </div> 
+              <div class="posts__containers__container__left__posts__post__bottom"> 
+                <%= image_tag post.image %>
+                <div class="posts__containers__container__left__posts__post__bottom__caption">
+                  <div class="posts__containers__container__left__posts__post__bottom__caption__top">
+
+                  <div class="posts__containers__container__left__posts__post__bottom__caption__top__category">
+                    <% post.categories.each do |category| %>
+                    <li>
+                        <%= link_to category.name, category_path(category.id), class: "posts__containers__container__left__posts__post__bottom__caption__top__category__link" %>
+                    </li>
+                    <% end %>
+                  </div>
+                  <div class="posts__containers__container__left__posts__post__bottom__caption__top__giver">
+                      <% post.givers.each do |giver| %>
+                      <a href="/givers/<%= giver.id %>">
+                        <%= giver.name %>
+                      </a>さんからのプレゼント
+                       <% end %>
+                  </div>
+                  </div>
+                  <div class="posts__containers__container__left__posts__post__bottom__caption__comment">
+                    <%= post.text%>
+                  </div>
+                </div>
+              </div> 
+              
+            </div> 
+<% end %> 
+          </div> 
+        </div>
+        <div class="posts__containers__container__right"> 
+        <%= link_to new_post_path do %>
+          <div class="posts__containers__container__right__circle">
+            <i class="fas fa-gift"></i>
+            <h1>サンタからの<br>プレゼントを投稿</h1>
+          </div>            
+           <% end %>
+
+          <%= link_to new_group_path do %>
+          <div class="posts__containers__container__right__circle__other">
+             <i class="fas fa-user-plus"></i>
+              <h1>Secret Santa<br>を集める</h1>
+          </div>
+           <% end %>
+      </div>
+    </div>
+
+    </div>
+
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>

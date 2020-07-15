@@ -1,0 +1,62 @@
+  <%= render 'layouts/header'%>
+
+        <div class ="groupsnew__containers">
+      <div class ="groupsnew__containers__container">
+        <div class="groupsnew__containers__container__title">
+          Create New Group
+        </div>
+        <div class="groupsnew__containers__container__form">
+          <%= form_for (@group), class: :form, local: true do |form| %>
+            <div class="groupsnew__containers__container__form__item">Group Name</div>
+            <%= form.text_field :name, class: :groupsnew__containers__container__form__description, placeholder: 'グループ名を入力してください' %>
+
+
+<div class="chat-group-form__field clearfix">
+  <div class="chat-group-form__field--left">
+    <label class="chat-group-form__label" for="chat_group_addmember">addmember</label>
+  </div>
+  <div class="chat-group-form__field--right">
+    <div class="chat-group-form__search clearfix">
+      <input class="chat-group-form__input" id="participantssearch" placeholder="adduser" type="text">
+    </div>
+    <div id="participantssearchresult"></div>
+  </div>
+</div>
+
+<div class="chat-group-form__field clearfix">
+  <div class="chat-group-form__field--left">
+    <label class="chat-group-form__label" for="chat_group_chatmember">chatmember</label>
+  </div>
+  <div class="chat-group-form__field--right">
+    <div class="js-add-participant" id="chat-group-users">
+      <div class="chat-group-user clearfix js-chat-member">
+        <input name="group[user_ids][]" type="hidden" value="<%= current_user.id %>">
+        <p class="chat-group-user__name">
+          <%= current_user.name %>
+        </p>
+      </div>
+      <% @group.users.each do |user| %>
+        <% if current_user.name != user.name %>
+          <div class="chat-group-user clearfix js-chat-member">
+            <input name="group[user_ids][]" type="hidden" value="<%= user.id %>">
+            <p class="chat-group-user__name">
+              <%= user.name  %>
+            </p>
+            <a class="user-search-remove chat-group-user__btn chat-group-user__btn--remove js-remove-btn"></a>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+            <div class="groupsnew__containers__container__form__item">Period</div>
+            <%= form.text_area :period, class: :groupsnew__containers__container__form__description %>
+            <div class="groupsnew__containers__container__form__item">Budget</div>
+            <%= form.text_area :budget, class: :groupsnew__containers__container__form__description %>
+            <%= form.submit 'Create', class: :groupsnew__containers__container__form__btn %>
+            <%= link_to "Dashboard", posts_path, class: "groupsnew__containers__container__form__back" %>
+          <% end %>
+        </div>
+      </div>
+    </div>

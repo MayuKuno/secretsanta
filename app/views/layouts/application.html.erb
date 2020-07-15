@@ -1,14 +1,25 @@
+
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Secretsanta</title>
-    <%= csrf_meta_tags %>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <title>Secretsanta</title>
+  <%= csrf_meta_tags %>
+  <%# <%= csp_meta_tag %> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet">
+
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+</head>
   <body>
+
     <%= yield %>
+
   </body>
 </html>
